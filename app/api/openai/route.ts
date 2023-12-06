@@ -1,18 +1,12 @@
-// pages/api/bookGPTAPI.ts
+// app/api/openai/route.ts
 
-import { NextApiRequest, NextApiResponse } from 'next';
 import { summarizeBookChapterWithOpenAI } from "@/app/components/GPT4BookSummary";
 
-const MAX_BOOKS = 5;
+export const runtime = 'edge';
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
-  if (!process.env.OPENAI_API_KEY) {
-    res.status(500).json({ error: "OpenAI API key not set!" });
-    return;
-  }
-
+export async function POST(req: Request) {
   // Directly access the parsed body
-  const { books } = req.body;
+  const { books } = await req.json();
 
   if (!books || books.length === 0) {
     return new Response(JSON.stringify({ error: "Books are required." }), {
@@ -21,29 +15,28 @@ export default async function POST(req: NextApiRequest, res: NextApiResponse) {
     });
   }
 
-  if (books.length > MAX_BOOKS) {
-    return new Response(JSON.stringify({ error: `Cannot summarize more than ${MAX_BOOKS} books in one request.` }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
-  }
+  console.log("Received books for summarization:", books); // Log received books
 
   const summarizedBooks = [];
-  for (let book of books) {
+  for (const book of books) {
     try {
-        const summary = await summarizeBookChapterWithOpenAI(book.title, book.authors, book.publishedDate);
-        summarizedBooks.push({
-            title: book.title,
-            authors: book.authors,
-            summarizedText: summary
-        });
+      console.log("Processing book:", book); // Log each book before processing
+      const summary = await summarizeBookChapterWithOpenAI(book.title, book.authors, book.publishedDate);
+      console.log("Received summary for book:", book.title, "summary:", summary); // Log after receiving summary
+
+      summarizedBooks.push({
+          title: book.title,
+          authors: book.authors,
+          summarizedText: summary
+      });
     } catch (error) {
-        const errorMessage = error instanceof Error ? error.message : "Unknown error";
-        summarizedBooks.push({
-            title: book.title,
-            authors: book.authors,
-            summarizedText: `Failed to summarize this book: ${errorMessage}`
-        });
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      console.error("Error summarizing book:", book.title, errorMessage); // Log errors
+      summarizedBooks.push({
+          title: book.title,
+          authors: book.authors,
+          summarizedText: `Failed to summarize this book: ${errorMessage}`
+      });
     }
   }
 

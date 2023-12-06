@@ -97,16 +97,12 @@ const BookDropdown = ({
     // LOGGING HERE
     console.log("Book selected with ID:", bookId);
     
-    router.push(`/summary?bookId=${bookId}`);
+    router.push(`/books//bookSummary?bookId=${bookId}`);
   };
   
 
   console.log("Dropdown states: isOpen:", isOpen, "isLoading:", isLoading);
 
-  // books.forEach((book) => {
-  // console.log('Generated key for book:', `${book.title}-${book.industryIdentifier.identifier}`);
-  // });
-  
   return (
     <div className="text-gray-700 w-full">
       <input
@@ -131,7 +127,7 @@ const BookDropdown = ({
               key={`${book.title}-${book.industryIdentifier.identifier}`}
               {...getItemProps({ item: book, index })}
               onClick={() => handleBookClick(book)}
-              className={`flex items-center p-2 space-x-2 ${
+              className={`flex items-start p-2 space-x-2 ${
                 highlightedIndex === index ? "bg-gray-200" : ""
               }`}
             >

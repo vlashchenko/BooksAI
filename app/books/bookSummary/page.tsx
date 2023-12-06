@@ -5,10 +5,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
-import axios from "axios";
 import { GoogleBookVolume } from "@/app/components/types";
 import HomeButtonSVG from "@/public/assets/svg/HomeButtonSVG";
-import LibraryButtonSVG from "@/public/assets/svg/LibraryButtonSVG";
 import SearchButtonSVG from "@/public/assets/svg/SearchButtonSVG";
 import MenuButtonSVG from "@/public/assets/svg/MenuButtonSVG";
 import { BookContext } from "@/app/components/BookContext"; // Import the context
@@ -27,22 +25,6 @@ const BookSummaryPage: React.FC = () => {
         if (bookFromContext) {
           setBookDetails(bookFromContext);
           await fetchChapterSummaries(bookFromContext);
-        } else {
-          try {
-            const response = await fetch(`/api/items?query=${bookId}`);
-            if (!response.ok) {
-              throw new Error(`Failed to fetch book details for bookId: ${bookId}`);
-            }
-            const data = await response.json();
-            if (data && Array.isArray(data) && data.length > 0) {
-              const matchedBook = data[0];
-              setBookDetails(matchedBook);
-            } else {
-              console.error("No book details received for bookId:", bookId);
-            }
-          } catch (error) {
-            console.error("Error fetching book details:", error);
-          }
         }
       }
     }
@@ -51,23 +33,25 @@ const BookSummaryPage: React.FC = () => {
   
   const fetchChapterSummaries = async (book: GoogleBookVolume) => {
     try {
-      console.log(
-        "Fetching chapter summaries for book:",book); // Log here
-      const response = await axios.post("/api/bookGPTAPI", {
-        books: [book],
+      console.log("Fetching chapter summaries for book:", book); // Log here
+      const response = await fetch(`/api/openai`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ books: [book] }), // Send the book data in the request body
       });
-
-      if (
-        response.data &&
-        response.data.summarizedBooks &&
-        response.data.summarizedBooks.length > 0
-      ) {
-        const summarizedData = response.data.summarizedBooks[0];
+  
+      const responseData = await response.json();
+  
+      if (responseData && responseData.summarizedBooks && responseData.summarizedBooks.length > 0) {
+        const summarizedData = responseData.summarizedBooks[0];
         console.log(
           "Received chapter summary for book:",
           summarizedData.title,
           "by",
-          summarizedData.authors.join(", ")
+          summarizedData.authors.join(", "),
+
         ); // Log here
         setChapterSummaries((prev) => [
           ...prev,
@@ -84,22 +68,21 @@ const BookSummaryPage: React.FC = () => {
       console.error("Error fetching chapter summaries:", error); // You already had this log
     }
   };
+  
 
   return (
     <div className="container mx-auto p-4">
+      
       {/* Top Menu */}
       <div className="flex justify-center space-x-4 mb-6">
         <button title="Home">
           <HomeButtonSVG />
         </button>
-        <button title="Library">
-          <LibraryButtonSVG />
+        <button title="Menu">
+          <MenuButtonSVG />
         </button>
         <button title="Search">
           <SearchButtonSVG />
-        </button>
-        <button title="Menu">
-          <MenuButtonSVG />
         </button>
       </div>
 

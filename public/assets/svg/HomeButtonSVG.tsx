@@ -1,29 +1,41 @@
+// public/assets/svg/HomeButtonSVG.tsx
+
 import React from "react";
 
 const HomeButtonSVG: React.FC = () => {
   return (
-    <svg
-      width="800px"
-      height="800px"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g clipPath="url(#clip0_429_11177)">
-        <path
-          d="M19 10V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V10M21 12L12 3L3 12"
-          stroke="#292929"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </g>
-      <defs>
-        <clipPath id="clip0_429_11177">
-          <rect width="24" height="24" fill="white" />
-        </clipPath>
-      </defs>
-    </svg>
+    <div className="w-20 h-20">
+      {" "}
+      {/* Adjust size with Tailwind width (w-) and height (h-) classes */}
+      <svg
+        fill="white"
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink" // Corrected attribute name
+        width="80px" // Adjusted to match the wrapper size
+        height="80px" // Adjusted to match the wrapper size
+        viewBox="0 0 448.512 448.512"
+        xmlSpace="preserve" // Corrected attribute name
+        className="fill-current text-black" // Using Tailwind for styling
+      >
+        <g>
+          <path
+            d="M444.277,215.253L242.72,52.441l-11.186-9.289c-4.22-3.506-10.34-3.506-14.559,0l-58.162,48.301V71.031
+            c0-6.294-5.104-11.397-11.396-11.397h-43.449c-6.293,0-11.396,5.104-11.396,11.397v75.233L4.191,218.371
+            c-4.875,3.979-5.605,11.157-1.625,16.035c2.254,2.764,5.531,4.193,8.836,4.193c2.533,0,5.082-0.841,7.203-2.565l34.477-28.126
+            v188.684c0,6.294,5.102,11.397,11.396,11.397h121.789c6.295,0,11.398-5.104,11.398-11.397v-88.426h53.18v88.426
+            c0,6.294,5.104,11.397,11.398,11.397h121.789c6.295,0,11.397-5.104,11.397-11.397V205.101l34.521,27.884
+            c2.108,1.702,4.643,2.532,7.158,2.532c3.321,0,6.622-1.447,8.87-4.235C449.937,226.384,449.173,219.208,444.277,215.253z
+            M115.366,82.428h20.652v27.164l-20.652,16.716V82.428z M372.636,189.958v195.235h-98.994v-88.427
+            c0-6.294-5.104-11.396-11.397-11.396h-75.977c-6.295,0-11.396,5.104-11.396,11.396v88.427H75.877V189.958l44.309-36.798
+            c0,0,103.748-85.009,104.41-86.141L372.636,189.958z"
+            stroke-width="1"
+            stroke= "white"
+          />
+        </g>
+      </svg>
+    </div>
   );
 };
 

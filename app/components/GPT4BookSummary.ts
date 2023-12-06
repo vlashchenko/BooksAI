@@ -1,31 +1,34 @@
-// pages/api/BookSummarizer.ts
+// app/components/GPT4BookSummary.ts
 
 import OpenAI from 'openai';
-
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
-console.log("API Key:", process.env.OPENAI_API_KEY); // Add this line
+console.log("API Key:", process.env.OPENAI_API_KEY);
+
+// Set the runtime to edge for best performance
+export const runtime = 'edge';
 
 export const summarizeBookChapterWithOpenAI = async (title: string, authors: string, publishedDate: string, ) => {
   if (!process.env.OPENAI_API_KEY) {
     console.error("OpenAI API key not set!");
     throw new Error("Error: API key not set.");
   }
-
+console.log ("Prompt received info:", title, authors, publishedDate )
   try {
     const response = await openai.chat.completions.create({
       model: "gpt-4",
       messages: [
         {
             "role": "system",
-            "content": "You will be provided with a book name, its authors, and the publishedDate. Your task is to generate a summary thereof within a certain token number. The summary should include details about facts, theories, logic, main events, characters, settings, and other essential information to understand the chapter. Please provide the summary in a JSON-like format, with each chapter title as the key and its summary as the value. For example: {\"Chapter 1: The Beginning\": \"This chapter talks about ...\", \"Chapter 2: The Journey\": \"In this chapter, ...\"}."
+            "content": "You will be provided with a book name, its authors, and the publishedDate. Your task is to define a book, if you know its content - to generate a summary thereof within a certain token number. The summary should include details about facts, theories, logic, main events, characters, settings, and other essential information to understand the chapter. The format should look like this: Chapter 1: [Chapter Title] / [Summary of Chapter 1]"
+            
         },
         {
             "role": "user",
-            "content": `Summarize any 3 chapters (III, IV, V) of the Book: ${title} by ${authors} published ${publishedDate}.`
+            "content": `Summarize the Book: ${title} by ${authors} published ${publishedDate}.`
         }
         
       ],
