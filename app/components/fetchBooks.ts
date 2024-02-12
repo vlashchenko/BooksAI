@@ -3,8 +3,7 @@
 import axios from "axios";
 import { GoogleBookVolume, GoogleBooksAPIItem } from "./types";
 import { cacheBookById, getBookById } from './bookCache';  // Import from the new cache file
-
-const API_KEY = process.env.API_KEY; // Assuming you have an API key
+import { filterAndDeduplicateBooks } from "./filterBooks";
 
 export const fetchBooksFromLibrary = async (query: string): Promise<GoogleBookVolume[]> => {
   const formattedQuery = `intitle:${encodeURIComponent(
@@ -44,13 +43,16 @@ export const fetchBooksFromLibrary = async (query: string): Promise<GoogleBookVo
         }))
       : [];
 
-    fetchedBooks.forEach(book => {
-      if (book.industryIdentifier?.identifier) {
-        cacheBookById(book.industryIdentifier.identifier, book);
-      }
-    });
+      const filteredAndDeduplicatedBooks = filterAndDeduplicateBooks(fetchedBooks, query);
 
-    return fetchedBooks;
+      filteredAndDeduplicatedBooks.forEach(book => {
+        if (book.industryIdentifier?.identifier) {
+          cacheBookById(book.industryIdentifier.identifier, book);
+        }
+      });
+
+    return filteredAndDeduplicatedBooks;
+    
   } catch (error) {
     console.error(
       "Error fetching books:",

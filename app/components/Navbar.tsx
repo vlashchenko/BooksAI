@@ -15,7 +15,7 @@ const Navbar = () => {
     <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4">
       <div></div>
       <h1 className="text-3xl w-full text-bold">
-        <span className=" text-green-400">DEMO.</span>SV
+        <span className=" text-[#00df9a]">DEMO.</span>SV
       </h1>
       <ul className="hidden md:flex">
         <li className="p-4">BookAI</li>
@@ -28,7 +28,7 @@ const Navbar = () => {
       </div>
       <div className={nav ? "bg-[#000300] fixed top-0 left-0 w-[60%] border-r border-r-gray-900 h-full":"fixed ease-in-out duration-500 left-[-100%]"} >
         <h1 className="m-4 text-3xl w-full text-bold">
-          <span className=" text-green-400">DEMO.</span>SV
+          <span className=" text-[#00df9a]">DEMO.</span>SV
         </h1>
         <ul className="pt-4 uppercase">
           <li className="p-4 border-b border-gray-600">BookAI</li>

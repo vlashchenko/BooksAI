@@ -6,12 +6,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { BookContext } from "@/app/components/BookContext"; // Import the context
 import { BookContextType } from "@/app/components/types";
 import OpenAIIcon from "@/public/assets/svg/OpenAIIconSVG";
-import BookDropdown from "@/app/books/booksList/BooksDropDown";
-
+import BookDropdown from "@/app/application/books/booksList/BooksDropDown";
 
 function StartPage() {
   const [query, setQuery] = useState("");
-  const {books, setBooks} = useContext<BookContextType>(BookContext);
+  const { books, setBooks } = useContext<BookContextType>(BookContext);
   const [isLoading, setIsLoading] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -22,21 +21,19 @@ function StartPage() {
       console.log("Fetching books for query:", query);
       fetchBooks(query);
     }
-    if (query.length < 1) {
-      console.log("Query length less than 1. (Re)setting books to [].");
-      setBooks([]);
-    }
   }, [query]);
 
   const fetchBooks = async (query: string) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`/api/book?query=${encodeURIComponent(query)}`);
-  
+      const response = await fetch(
+        `/api/book?query=${encodeURIComponent(query)}`
+      );
+
       if (!response.ok) {
         throw new Error("Server responded with an error");
       }
-  
+
       const data = await response.json();
       console.log("Fetched books data:", data);
       setBooks(data);
@@ -50,7 +47,7 @@ function StartPage() {
   };
 
   return (
-    <div className="max-w-[400px] mt-[10px] w-full h-screen mx-auto text-center flex flex-col justify-center bg-black">
+    <div className="max-w-[400px] mb-[96px] w-full h-screen mx-auto text-center flex flex-col justify-center bg-black">
       <div className="">
         <OpenAIIcon />
         <h1 className="text-white my-6">SUMMARIZE BOOKS WITH AI</h1>

@@ -4,8 +4,9 @@ import Hero from './components/Hero'
 
 const AppPage = () => {
 
+  console.log("the start page mounted")
   return (
-    <div>
+    <div className='mb-24'>
    <Hero/>
     </div>
   )

@@ -23,7 +23,9 @@ console.log ("Prompt received info:", title, authors, publishedDate )
       messages: [
         {
             "role": "system",
-            "content": "You will be provided with a book name, its authors, and the publishedDate. Your task is to define a book, if you know its content - to generate a summary thereof within a certain token number. The summary should include details about facts, theories, logic, main events, characters, settings, and other essential information to understand the chapter. The format should look like this: Chapter 1: [Chapter Title] / [Summary of Chapter 1]"
+            "content": `You will be provided with a book name, its authors, and the publishedDate. 
+            Your task is to define a book, if you know its content - to generate a summary thereof within a certain token number. 
+            The summary should include details about facts, theories, logic, main events, characters, settings, and other essential information to understand the chapter.`
             
         },
         {
@@ -32,11 +34,15 @@ console.log ("Prompt received info:", title, authors, publishedDate )
         }
         
       ],
-      max_tokens: 300
+      max_tokens: 50
     });
 
-    return response.choices[0]?.message?.content || "Error: Failed to get a summarized response.";
-
+    return {
+      title,
+      authors,
+      publishedDate,
+      summary: response.choices[0]?.message?.content || "No summary available."
+    };
   } catch (error) {
     if (error instanceof OpenAI.APIError) {
       console.error(error.status);

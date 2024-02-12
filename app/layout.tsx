@@ -1,3 +1,5 @@
+// app/layout.tsx
+
 import { Inter } from "next/font/google";
 import BooksContextProvider from "./components/BookContext";
 import "./globals.css";

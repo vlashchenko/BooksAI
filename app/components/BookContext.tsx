@@ -11,6 +11,8 @@ export const BookContext = createContext<BookContextType>({
 
 export default function BooksContextProvider({ children }: { children: React.ReactNode }) {
   const [books, setBooks] = useState<GoogleBookVolume[]>([]);
+  console.log("COntext is updated", books)
+
 
   return (
     <BookContext.Provider value={{ books, setBooks }}>
