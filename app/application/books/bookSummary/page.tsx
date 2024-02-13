@@ -7,16 +7,17 @@ import Image from "next/image";
 import { GoogleBookVolume } from "@/app/components/types";
 import BookBarMenu from "./BookBarMenu";
 import { Suspense } from "react";
-import Loading from "./loading";
+import Loading from "./SummaryLoading";
 import SummaryBook from "./SummaryBook";
 import { useSearchParams } from "next/navigation";
+import { SkeletonBookSummary } from "@/app/components/Skeleton";
 
 const BookSummaryPage = () => {
   const searchParams = useSearchParams();
   const bookId = searchParams?.get("bookId") || null;
   const [bookDetails, setBookDetails] = useState<GoogleBookVolume | null>(null);
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   return (
     <div className="max-w-[800px] bg-white container mx-auto p-4">
@@ -59,7 +60,7 @@ const BookSummaryPage = () => {
       {/* Chapter Summaries */}
 
       <div className="space-y-6">
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<p>Loading feed...</p>}>
           <SummaryBook
             bookId={bookId}
             setBookDetails={setBookDetails}
@@ -69,7 +70,7 @@ const BookSummaryPage = () => {
         </Suspense>
       </div>
       {/* Book Context Answer */}
-      
+
       {bookDetails?.context && (
         <div className="space-y-6">
           <div className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md">

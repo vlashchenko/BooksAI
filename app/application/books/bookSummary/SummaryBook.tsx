@@ -1,26 +1,29 @@
-'use client'
+"use client";
 
 import React, { useEffect, useContext } from "react";
 import { BookContext } from "@/app/components/BookContext";
 import { GoogleBookVolume } from "@/app/components/types";
-import Loading from "./loading";
-
+import Loading from "./SummaryLoading";
 
 export type SummaryBookProps = {
-  bookId: string| null;
+  bookId: string | null;
   setBookDetails: (value: GoogleBookVolume) => void;
-  bookDetails: GoogleBookVolume | null
-  setLoading: (loading: boolean) => void
+  bookDetails: GoogleBookVolume | null;
+  setLoading: (loading: boolean) => void;
 };
 
-const SummaryBook = ({ bookId, setBookDetails, bookDetails, setLoading }: SummaryBookProps) => {
-  
+const SummaryBook = ({
+  bookId,
+  setBookDetails,
+  bookDetails,
+  setLoading,
+}: SummaryBookProps) => {
   const { books } = useContext(BookContext); // Use the context to access books
 
   useEffect(() => {
     async function fetchBookDetails() {
       if (bookId) {
-        setLoading(true)
+        setLoading(true);
         const bookFromContext = books.find(
           (book) => book.industryIdentifier.identifier === bookId
         );
@@ -28,7 +31,7 @@ const SummaryBook = ({ bookId, setBookDetails, bookDetails, setLoading }: Summar
           setBookDetails(bookFromContext);
           await fetchChapterSummaries(bookFromContext);
         }
-        setLoading(false)
+        setLoading(false);
       }
     }
     fetchBookDetails();
@@ -79,4 +82,4 @@ const SummaryBook = ({ bookId, setBookDetails, bookDetails, setLoading }: Summar
   );
 };
 
-export default SummaryBook
+export default SummaryBook;

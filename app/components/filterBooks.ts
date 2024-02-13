@@ -5,7 +5,7 @@ export const filterAndDeduplicateBooks = (books: GoogleBookVolume[], query: stri
   const inputValue = query.toLowerCase();
 
   const filteredBooks = books.filter((book) => {
-    const titleMatch = book.title.toLowerCase().includes(inputValue);
+    const titleMatch = book.title?.toLowerCase().includes(inputValue);
     const authorMatch = Array.isArray(book.authors) && book.authors.some((author) => author.toLowerCase().includes(inputValue));
     return titleMatch || authorMatch;
   });
