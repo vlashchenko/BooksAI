@@ -66,6 +66,7 @@ const BookSummaryPage = () => {
             setBookDetails={setBookDetails}
             bookDetails={bookDetails}
             setLoading={setLoading}
+            onLoading={loading}
           />
         </Suspense>
       </div>
@@ -74,7 +75,7 @@ const BookSummaryPage = () => {
       {bookDetails?.context && (
         <div className="space-y-6">
           <div className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md">
-            <h2>{`Answer to quewstion: ${query}`}</h2>
+            <h2>{`Answer to question: ${query}`}</h2>
             <p className="text-gray-700">{bookDetails.context}</p>
           </div>
         </div>

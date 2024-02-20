@@ -6,7 +6,7 @@ export type GoogleBookVolume = {
     publishedDate?: string,
     description?: string,
     context?:string,
-    industryIdentifier: {
+    industryIdentifier?: {
         type: string,
         identifier: string
     },

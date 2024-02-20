@@ -4,12 +4,14 @@ import React, { useEffect, useContext } from "react";
 import { BookContext } from "@/app/components/BookContext";
 import { GoogleBookVolume } from "@/app/components/types";
 import Loading from "./SummaryLoading";
+import { SkeletonBookSummary } from "@/app/components/Skeleton";
 
 export type SummaryBookProps = {
   bookId: string | null;
   setBookDetails: (value: GoogleBookVolume) => void;
   bookDetails: GoogleBookVolume | null;
   setLoading: (loading: boolean) => void;
+  onLoading: boolean
 };
 
 const SummaryBook = ({
@@ -17,6 +19,7 @@ const SummaryBook = ({
   setBookDetails,
   bookDetails,
   setLoading,
+  onLoading
 }: SummaryBookProps) => {
   const { books } = useContext(BookContext); // Use the context to access books
 
@@ -75,6 +78,7 @@ const SummaryBook = ({
   return (
     <div className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md">
       <h2 className="ext-gray-800 text-black text-xl">Book Summary</h2>
+      {onLoading && <SkeletonBookSummary/>}
       <p className="text-gray-700 text-start justify-center">
         {bookDetails?.summary}
       </p>
