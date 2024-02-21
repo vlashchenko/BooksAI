@@ -18,6 +18,7 @@ const BookSummaryPage = () => {
   const [bookDetails, setBookDetails] = useState<GoogleBookVolume | null>(null);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
+  const [loadingContext, setLoadingContext] = useState(false)
 
   return (
     <div className="max-w-[800px] bg-white container mx-auto p-4">
@@ -26,6 +27,8 @@ const BookSummaryPage = () => {
         bookDetails={bookDetails}
         setBookDetails={setBookDetails}
         onQueryChange={setQuery}
+        loadingContext={loadingContext}
+        setLoadingContext={setLoadingContext}
       />
 
       {/* Info Container */}

@@ -6,10 +6,12 @@ import SearchButtonSVG from "@/public/assets/svg/SearchButtonSVG";
 export type BookBarMenuProp = {
   bookDetails: GoogleBookVolume | null;
   setBookDetails: (bookDetails: GoogleBookVolume) => void;
+  setLoadingContext: (loadingContext: boolean) => void;
+  loadingContext: boolean
   onQueryChange: (query: string) => void;
 };
 
-const BookBarMenu = ({ bookDetails, setBookDetails, onQueryChange }: BookBarMenuProp) => {
+const BookBarMenu = ({ bookDetails, setBookDetails, onQueryChange, loadingContext, setLoadingContext}: BookBarMenuProp) => {
   const [isClicked, setIsClicked] = useState(false);
   const [inputValue, setInputValue] = useState<string>('');
 
