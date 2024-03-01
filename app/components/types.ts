@@ -33,9 +33,3 @@ export type GoogleBooksAPIItem = {
 };
   
 
-// Define the type for your context, including functions and state
-export type BookContextType = {
-    books: GoogleBookVolume[];
-    setBooks: (books: GoogleBookVolume[]) => void;
-    // add other states and functions as needed
-  };

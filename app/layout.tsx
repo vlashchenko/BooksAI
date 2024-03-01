@@ -1,9 +1,10 @@
 // app/layout.tsx
 
 import { Inter } from "next/font/google";
-import BooksContextProvider from "./components/BookContext";
+import BooksContextProvider from "./wrappers/BooksListContext";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import BookDetailsContextProvider from "./wrappers/BookDetailsContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,8 +17,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-      <Navbar/>
-        <BooksContextProvider>{children}</BooksContextProvider>
+        <Navbar />
+        <BookDetailsContextProvider>
+          <BooksContextProvider>{children}</BooksContextProvider>
+        </BookDetailsContextProvider>
       </body>
     </html>
   );

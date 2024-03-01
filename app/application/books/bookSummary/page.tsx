@@ -11,6 +11,8 @@ import Loading from "./SummaryLoading";
 import SummaryBook from "./SummaryBook";
 import { useSearchParams } from "next/navigation";
 import { SkeletonBookSummary } from "@/app/components/Skeleton";
+import { BookDetailsContext } from "@/app/wrappers/BookDetailsContext";
+import ContextBook from "./ContextBook";
 
 const BookSummaryPage = () => {
   const searchParams = useSearchParams();
@@ -75,14 +77,10 @@ const BookSummaryPage = () => {
       </div>
       {/* Book Context Answer */}
 
-      {bookDetails?.context && (
-        <div className="space-y-6">
-          <div className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md">
-            <h2>{`Answer to question: ${query}`}</h2>
-            <p className="text-gray-700">{bookDetails.context}</p>
-          </div>
-        </div>
-      )}
+      <ContextBook
+      setLoadingContext={setLoadingContext}
+      onLoadingContext={loadingContext}
+      />
     </div>
   );
 };

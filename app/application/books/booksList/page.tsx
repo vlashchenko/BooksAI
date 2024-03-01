@@ -3,8 +3,8 @@
 "use client";
 
 import React, { useEffect, useState, useContext } from "react";
-import { BookContext } from "@/app/components/BookContext"; // Import the context
-import { BookContextType } from "@/app/components/types";
+import { BookContext } from "@/app/wrappers/BooksListContext"; // Import the context
+import { BookContextType } from "@/app/wrappers/BooksListContext";
 import OpenAIIcon from "@/public/assets/svg/OpenAIIconSVG";
 import BookDropdown from "@/app/application/books/booksList/BooksDropDown";
 
