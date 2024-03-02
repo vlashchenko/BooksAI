@@ -28,7 +28,7 @@ const SummaryBook = ({
       if (bookId) {
         setLoading(true);
         const bookFromContext = books.find(
-          (book) => book.industryIdentifier.identifier === bookId
+          (book) => book.industryIdentifier?.identifier === bookId
         );
         if (bookFromContext) {
           setBookDetails(bookFromContext);
