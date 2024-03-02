@@ -52,7 +52,7 @@ const BookDropdown = ({
   });
 
   const handleBookClick = (book: GoogleBookVolume) => {
-    const bookId = book.industryIdentifier.identifier;
+    const bookId = book.industryIdentifier?.identifier;
     console.log("Book selected with ID:", bookId);
     router.push(`/application/books/bookSummary?bookId=${bookId}`);
   };
@@ -74,7 +74,7 @@ const BookDropdown = ({
           !isLoading &&
           books.map((book, index) => (
             <li
-              key={`${book.title}-${book.industryIdentifier.identifier}`}
+              key={`${book.title}-${book.industryIdentifier?.identifier}`}
               {...getItemProps({ item: book, index })}
               onClick={() => handleBookClick(book)}
               className={`flex items-start p-2 space-x-2 ${
