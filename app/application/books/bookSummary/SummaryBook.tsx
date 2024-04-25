@@ -5,23 +5,23 @@ import { BookContext } from "@/app/wrappers/BooksListContext";
 import { GoogleBookVolume } from "@/app/components/types";
 import { SkeletonBookSummary } from "@/app/components/Skeleton";
 import AskAIButton from "./AskAIButton";
+import { BookDetailsContext, BookDetailsContextType } from "@/app/wrappers/BookDetailsContext";
 
 export type SummaryBookProps = {
   bookId: string | null;
-  setBookDetails: (value: GoogleBookVolume) => void;
-  bookDetails: GoogleBookVolume | null;
+  
   setLoading: (loading: boolean) => void;
   onLoading: boolean;
 };
 
 const SummaryBook = ({
   bookId,
-  setBookDetails,
-  bookDetails,
+  
   setLoading,
   onLoading,
 }: SummaryBookProps) => {
   const { books } = useContext(BookContext); // Use the context to access books
+  const { bookDetails, setBookDetails } = useContext(BookDetailsContext)
 
   useEffect(() => {
     async function fetchBookDetails() {
@@ -30,8 +30,10 @@ const SummaryBook = ({
         const bookFromContext = books.find(
           (book) => book.industryIdentifier?.identifier === bookId
         );
+        console.log("Set bookFromContext :", bookFromContext)
         if (bookFromContext) {
           setBookDetails(bookFromContext);
+          console.log("BookDetails updated by the bokFrimContext:", bookDetails)
           await fetchChapterSummaries(bookFromContext);
         }
         setLoading(false);
@@ -61,14 +63,16 @@ const SummaryBook = ({
         responseData.summaries.length > 0
       ) {
         const summarizedData = responseData.summaries[0].summary;
-        console.log(`Updated bookdetailes with summary:`, summarizedData);
 
+        console.log("summarizedData :", summarizedData)
+        
         const updatedBookDetails = {
           ...book, // Spread the existing book details
           summary: summarizedData, // Update the summary
         };
-
+        
         setBookDetails(updatedBookDetails);
+        console.log(`Updated bookdetailes with summary:`, bookDetails);
       }
     } catch (error) {
       console.error("Error fetching chapter summaries:", error); // You already had this log

@@ -22,7 +22,7 @@ export default function BooksContextProvider({
   children: React.ReactNode;
 }) {
   const [books, setBooks] = useState<GoogleBookVolume[]>([]);
-  console.log("books is updated", books);
+  console.log("books are updated", books);
 
   return (
     <BookContext.Provider value={{ books, setBooks }}>

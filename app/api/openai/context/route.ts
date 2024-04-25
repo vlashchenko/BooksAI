@@ -15,7 +15,7 @@ export async function POST(req: Request) {
       });
     }
 
-    console.log("Received books for summarization:", bookDetails);
+    console.log("Received books for context:", bookDetails);
 
     const context = await Promise.all(
       bookDetails.map(book =>

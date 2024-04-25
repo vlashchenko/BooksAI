@@ -48,7 +48,7 @@ const BookDropdown = ({
       }
     },
 
-    itemToString: (item) => (item ? item.title : ""),
+    itemToString: (item) => item?.title ?? "",
   });
 
   const handleBookClick = (book: GoogleBookVolume) => {
