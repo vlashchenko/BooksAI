@@ -19,7 +19,7 @@ const BookSummaryPage = () => {
   const bookId = searchParams?.get("bookId") || null;
   const [bookDetails, setBookDetails] = useState<GoogleBookVolume | null>(null);
   const [query, setQuery] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loadingSummary, setLoadingSummary] = useState(false);
   const [loadingContext, setLoadingContext] = useState(false)
 
   return (
@@ -68,10 +68,8 @@ const BookSummaryPage = () => {
         <Suspense fallback={<p>Loading feed...</p>}>
           <SummaryBook
             bookId={bookId}
-            setBookDetails={setBookDetails}
-            bookDetails={bookDetails}
-            setLoading={setLoading}
-            onLoading={loading}
+            setLoading={setLoadingSummary}
+            onLoading={loadingSummary}
           />
         </Suspense>
       </div>

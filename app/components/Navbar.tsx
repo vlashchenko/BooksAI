@@ -1,6 +1,7 @@
 "use client"
 
 import React, {useEffect, useState} from "react";
+import Link from "next/link";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 
 const Navbar = () => {
@@ -15,11 +16,10 @@ const Navbar = () => {
     <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4">
       <div></div>
       <h1 className="text-3xl w-full text-bold">
-        <span className=" text-[#00df9a]">DEMO.</span>SV
+       <Link href="/"> <span className=" text-[#00df9a]">DEMO.</span><span className="text-white">SV</span></Link>
       </h1>
       <ul className="hidden md:flex">
-        <li className="p-4">BookAI</li>
-        <li className="p-4">ProductsAI</li>
+        <Link href="/application/books/booksList" className="p-4">BookAI</Link>
         <li className="p-4">About</li>
         <li className="p-4">Contact </li>
       </ul>
@@ -31,7 +31,7 @@ const Navbar = () => {
           <span className=" text-[#00df9a]">DEMO.</span>SV
         </h1>
         <ul className="pt-4 uppercase">
-          <li className="p-4 border-b border-gray-600">BookAI</li>
+          <Link href="/application/books/booksList" className="p-4 border-b border-gray-600">BookAI</Link>
           <li className="p-4 border-b border-gray-600">ProductsAI</li>
           <li className="p-4 border-b border-gray-600">About</li>
           <li className="p-4 border-b border-gray-600">Contact </li>

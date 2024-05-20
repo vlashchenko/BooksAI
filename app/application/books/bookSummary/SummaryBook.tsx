@@ -4,25 +4,24 @@ import React, { useEffect, useContext } from "react";
 import { BookContext } from "@/app/wrappers/BooksListContext";
 import { GoogleBookVolume } from "@/app/components/types";
 import { SkeletonBookSummary } from "@/app/components/Skeleton";
-import AskAIButton from "./AskAIButton";
-import { BookDetailsContext, BookDetailsContextType } from "@/app/wrappers/BookDetailsContext";
+import AskAiButton from "./AskAiButton";
+import { BookDetailsContext } from "@/app/wrappers/BookDetailsContext";
+import { ContextQueryContext } from "@/app/wrappers/ContextQueryContext";
 
 export type SummaryBookProps = {
   bookId: string | null;
-  
   setLoading: (loading: boolean) => void;
   onLoading: boolean;
 };
 
 const SummaryBook = ({
   bookId,
-  
   setLoading,
   onLoading,
 }: SummaryBookProps) => {
   const { books } = useContext(BookContext); // Use the context to access books
   const { bookDetails, setBookDetails } = useContext(BookDetailsContext)
-
+  const { queryContext, setQueryContext } = useContext(ContextQueryContext)
   useEffect(() => {
     async function fetchBookDetails() {
       if (bookId) {
@@ -32,7 +31,7 @@ const SummaryBook = ({
         );
         console.log("Set bookFromContext :", bookFromContext)
         if (bookFromContext) {
-          setBookDetails(bookFromContext);
+          setBookDetails([bookFromContext]);
           console.log("BookDetails updated by the bokFrimContext:", bookDetails)
           await fetchChapterSummaries(bookFromContext);
         }
@@ -71,7 +70,7 @@ const SummaryBook = ({
           summary: summarizedData, // Update the summary
         };
         
-        setBookDetails(updatedBookDetails);
+        setBookDetails([updatedBookDetails]);
         console.log(`Updated bookdetailes with summary:`, bookDetails);
       }
     } catch (error) {
@@ -81,12 +80,14 @@ const SummaryBook = ({
 
   return (
     <div className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md">
-      <h2 className="ext-gray-800 text-black text-xl">Book Summary</h2>
+      <h2 className="text-gray-800 text-xl">Book Summary</h2>
       {onLoading && <SkeletonBookSummary />}
+      <div>
       <p className="text-gray-700 text-start justify-center">
-        {bookDetails?.summary}
+        {bookDetails.length > 0 && bookDetails[0]?.summary}
       </p>
-      <AskAIButton />
+      <AskAiButton />
+      </div>
     </div>
   );
 };
