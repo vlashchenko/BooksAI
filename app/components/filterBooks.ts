@@ -10,10 +10,10 @@ export const filterAndDeduplicateBooks = (books: GoogleBookVolume[], query: stri
     return titleMatch || authorMatch;
   });
 
-  const uniqueIdentifiers = new Set(filteredBooks.map((b) => b.industryIdentifier.identifier));
+  const uniqueIdentifiers = new Set(filteredBooks.map((b) => b.industryIdentifier?.identifier));
 
   const deduplicatedBooks = Array.from(uniqueIdentifiers).map((id) => {
-    return filteredBooks.find((b) => b.industryIdentifier.identifier === id);
+    return filteredBooks.find((b) => b.industryIdentifier?.identifier === id);
   }).filter((book): book is GoogleBookVolume => book !== undefined);
 
   return deduplicatedBooks;
