@@ -11,7 +11,7 @@ const Hero = () => {
       </h1>
       <div className="flex justify-center items-center">
         <div className="flex justify-center items-center">
-          <p className="md:text-4xl sm:text-3xl text-2xl">Search, learn, analyze</p>
+          <p className="md:text-4xl sm:text-3xl text-2xl text-white">Search, learn, analyze</p>
           <div className="flex w-32">
             <TypeComponent />
           </div>

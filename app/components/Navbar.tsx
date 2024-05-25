@@ -19,10 +19,10 @@ const Navbar = () => {
           <span className="text-[#00df9a]">DEMO.</span><span className="text-white">SV</span>
         </Link>
       </h1>
-      <ul className="hidden md:flex space-x-4">
-        <li className="p-4"><Link href="/application/books/booksList" >BookAI</Link></li>
-        <li className="p-4">About</li>
-        <li className="p-4">Contact</li>
+      <ul className="hidden md:flex space-x-4 text-white">
+        <li className="p-4 text-white"><Link href="/application/books/booksList" >BookAI</Link></li>
+        <li className="p-4 text-white">About</li>
+        <li className="p-4 text-white">Contact</li>
       </ul>
       <div onClick={handleNav} className="block md:hidden">
         {nav ? <AiOutlineClose size={30} /> : <AiOutlineMenu size={30} />}
@@ -32,10 +32,10 @@ const Navbar = () => {
           <span className="text-[#00df9a]">DEMO.</span>SV
         </h1>
         <ul className="pt-4 uppercase">
-          <li className="p-4 border-b border-gray-600"><Link href="/application/books/booksList" >BookAI</Link></li>
-          <li className="p-4 border-b border-gray-600">ProductsAI</li>
-          <li className="p-4 border-b border-gray-600">About</li>
-          <li className="p-4 border-b border-gray-600">Contact</li>
+          <li className="p-4 border-b border-gray-600 text-white"><Link href="/application/books/booksList" >BookAI</Link></li>
+          <li className="p-4 border-b border-gray-600 text-white">ProductsAI</li>
+          <li className="p-4 border-b border-gray-600 text-white">Contact</li>
+          <li className="p-4 border-b border-gray-600 text-white">About</li>
         </ul>
       </div>
     </div>
