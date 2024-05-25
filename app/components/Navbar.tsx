@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="mx-2 bg-black">
+    <div className=" bg-black">
     <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 bg-black">
       <h1 className="text-3xl font-bold">
         <Link href="/">
