@@ -20,7 +20,7 @@ export default function RootLayout({
         <Navbar />
         <BookDetailsContextProvider>
           <BooksContextProvider>
-            <main className="flex-grow flex items-center justify-center">
+            <main className="flex-grow flex items-center justify-center bg-black">
               {children}
             </main>
           </BooksContextProvider>

@@ -48,14 +48,14 @@ function StartPage() {
 
   return (
     <div className="w-[800px] max-w-full text-center flex flex-col justify-center items-center mx-8 bg-black">
-      <OpenAIIcon />
-      <h1 className="text-white my-6">SUMMARIZE BOOKS WITH AI</h1>
-      <div className="w-full max-w-[600px]">
+      <div className="w-full max-w-md">
+        <OpenAIIcon />
+        <h1 className="text-white my-6">SUMMARIZE BOOKS WITH AI</h1>
         <BookDropdown books={books} onInputChange={setQuery} isLoading={isLoading} />
+        {serverError && <p className="text-red-500 mt-4">{serverError}</p>}
       </div>
-      {serverError && <p className="text-red-500 mt-4">{serverError}</p>}
     </div>
   );
-}
+};
 
 export default StartPage;
