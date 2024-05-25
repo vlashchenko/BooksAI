@@ -23,7 +23,7 @@ const BookSummaryPage = () => {
   const [loadingContext, setLoadingContext] = useState(false)
 
   return (
-    <div className="max-w-[800px] bg-white container mx-auto p-4">
+    <div className="max-w-[800px] min-w-[420px] bg-white container mx-auto p-4">
       {/* Top Menu */}
       <BookBarMenu
         bookDetails={bookDetails}

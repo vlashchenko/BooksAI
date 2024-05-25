@@ -79,7 +79,7 @@ const SummaryBook = ({
   };
 
   return (
-    <div className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md">
+    <div className=" p-4 border flex flex-col space-y-2 border-gray-300 rounded-md min-w-[400px] w-full">
       <h2 className="text-gray-800 text-xl">Book Summary</h2>
       {onLoading && <SkeletonBookSummary />}
       <div>

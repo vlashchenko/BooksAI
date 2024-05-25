@@ -1,5 +1,3 @@
-// src/components/BooksDropDown.tsx
-
 "use client";
 
 import React, { useState } from "react";
@@ -25,7 +23,7 @@ const BookDropdown = ({
   const [inputValue, setInputValue] = useState("");
   const router = useRouter();
 
-  // You might still want to keep track of inputValue for other purposes
+  // Keep track of inputValue for other purposes
   const onInputValueChanged = (value: string) => {
     setInputValue(value);
     onInputChange(value);
@@ -60,14 +58,16 @@ const BookDropdown = ({
   console.log("Dropdown states: isOpen:", isOpen, "isLoading:", isLoading);
 
   return (
-    <div className="text-gray-700 w-full">
+    <div className="relative text-gray-700 w-full">
       <input
         {...getInputProps({ placeholder: "Search for a book..." })}
         className="w-full p-2 border border-gray-400 rounded"
       />
       <ul
         {...getMenuProps()}
-        className="mt-2 bg-white w-full border-gray-400 rounded max-h-60 overflow-y-auto"
+        className={`absolute left-0 mt-2 bg-white border border-gray-400 rounded max-h-60 overflow-y-auto w-full sm:max-w-md ${
+          isOpen ? "block" : "hidden"
+        }`}
       >
         {isOpen && isLoading && <SkeletonBookList />}
         {isOpen &&

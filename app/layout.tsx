@@ -16,10 +16,14 @@ export default function RootLayout({
   // Provide the state and functions to the context
   return (
     <html lang="en">
-      <body>
+      <body className="flex flex-col min-h-screen">
         <Navbar />
         <BookDetailsContextProvider>
-          <BooksContextProvider>{children}</BooksContextProvider>
+          <BooksContextProvider>
+            <main className="flex-grow flex items-center justify-center">
+              {children}
+            </main>
+          </BooksContextProvider>
         </BookDetailsContextProvider>
       </body>
     </html>
