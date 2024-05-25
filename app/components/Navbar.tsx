@@ -13,7 +13,7 @@ const Navbar = () => {
 
   return (
     <div className="mx-2">
-    <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4">
+    <div className="flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4 bg-black">
       <h1 className="text-3xl font-bold">
         <Link href="/">
           <span className="text-[#00df9a]">DEMO.</span><span className="text-white">SV</span>
