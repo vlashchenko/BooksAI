@@ -13,7 +13,9 @@ export type GoogleBookVolume = {
     pageCount?: number;
     thumbnail?: string;
     summary?: string;
-  } 
+    categories?: string[]; // Categories from Google Books, possibly matching your classification needs
+    id?: string; // The unique identifier provided by Google Books
+  }  
   
 
 export type GoogleBooksAPIItem = {
@@ -26,6 +28,7 @@ export type GoogleBooksAPIItem = {
             type: string;
             identifier: string;
         }>;
+        categories?: string[]
         pageCount?: number;
         imageLinks?: {
             thumbnail: string;

@@ -36,6 +36,7 @@ export const fetchBooksFromLibrary = async (query: string): Promise<GoogleBookVo
                   ? item.volumeInfo.industryIdentifiers[0].identifier
                   : "",
               },
+              categories: item.volumeInfo.categories || "No Category",
               pageCount: item.volumeInfo.pageCount,
               thumbnail: item.volumeInfo.imageLinks
                 ? item.volumeInfo.imageLinks.thumbnail
