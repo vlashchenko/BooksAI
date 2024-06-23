@@ -37,3 +37,21 @@ export type GoogleBooksAPIItem = {
 };
   
 
+export interface JWTToken {
+    accessToken: string;
+    [key: string]: unknown;
+  }
+  
+  export interface User {
+    access_token: string;
+    email: string;
+    username: string;
+  }
+  
+  export interface Session {
+    accessToken?: string;
+    user?: {
+      email: string;
+      name: string;
+    };
+  }

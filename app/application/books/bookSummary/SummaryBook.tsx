@@ -41,42 +41,40 @@ const SummaryBook = ({
     fetchBookDetails();
   }, [bookId, setLoading]);
 
-  const fetchChapterSummaries = async (book: GoogleBookVolume) => {
+  const fetchChapterSummaries = async (book:GoogleBookVolume) => {
     try {
-      console.log("Single book", book);
-      const response = await fetch(`/api/openai/summary/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ books: [book] }), // Send the book data in the request body
-      });
-
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/openai/summary/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${yourJWTToken}` // Add your JWT token here
+          },
+          body: JSON.stringify({ books: [book] }),
+        }
+      );
+  
       const responseData = await response.json();
-      console.log("Summary is of the type:", typeof responseData);
-      console.log(`Page received Summary:`, responseData);
-
       if (
         responseData &&
         responseData.summaries &&
         responseData.summaries.length > 0
       ) {
         const summarizedData = responseData.summaries[0].summary;
-
-        console.log("summarizedData :", summarizedData)
-        
+  
         const updatedBookDetails = {
-          ...book, // Spread the existing book details
-          summary: summarizedData, // Update the summary
+          ...book,
+          summary: summarizedData,
         };
-        
+  
         setBookDetails([updatedBookDetails]);
-        console.log(`Updated bookdetailes with summary:`, bookDetails);
       }
     } catch (error) {
-      console.error("Error fetching chapter summaries:", error); // You already had this log
+      console.error("Error fetching chapter summaries:", error);
     }
   };
+  
 
   return (
     <div className=" p-4 border flex flex-col space-y-2 border-gray-300 rounded-md min-w-[400px] w-full">
