@@ -6,7 +6,7 @@ import { useCombobox } from "downshift";
 import { GoogleBookVolume } from "@/app/components/types";
 import "react-loading-skeleton/dist/skeleton.css";
 import Image from "next/image";
-import bookCoverPlaceholder from "public/assets/images/book_cover_placeholder.jpeg";
+import bookCoverPlaceholder from "@/public/assets/images/book_cover_placeholder.jpeg";
 import { SkeletonBookList } from "@/app/components/Skeleton";
 
 export type BookDropdownProps = {

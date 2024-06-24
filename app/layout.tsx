@@ -3,7 +3,7 @@
 "use client";
 import { Inter } from "next/font/google";
 import BooksContextProvider from "./wrappers/BooksListContext";
-import "./globals.css";
+import '../../../globals.css';
 import Navbar from "./components/Navbar";
 import BookDetailsContextProvider from "./wrappers/BookDetailsContext";
 import { useSession, getSession } from "next-auth/react";
