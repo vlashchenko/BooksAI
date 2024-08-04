@@ -1,46 +1,45 @@
-import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
-import { type DefaultSession } from "next-auth";
+// auth.ts
 
-// Extend the Session interface to include the address property
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import LinkedInProvider from "next-auth/providers/linkedin";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { JWT } from "next-auth/jwt";
+
+// Extend the DefaultSession interface to include custom properties
 declare module "next-auth" {
   interface Session {
     user: {
       address: string;
-    } & DefaultSession["user"];
+    };
   }
-
-  interface User {}
-  interface Account {}
 }
 
-import { JWT } from "next-auth/jwt";
-
-// Extend the JWT interface to include the idToken property
+// Extend the JWT interface to include custom properties
 declare module "next-auth/jwt" {
   interface JWT {
     idToken?: string;
   }
 }
 
-export default NextAuth({
+// Setup NextAuth with providers and callbacks
+export const { auth, handlers } = NextAuth({
   providers: [
-    Providers.Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    Providers.LinkedIn({
-      clientId: process.env.LINKEDIN_CLIENT_ID,
-      clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
+    LinkedInProvider({
+      clientId: process.env.LINKEDIN_CLIENT_ID!,
+      clientSecret: process.env.LINKEDIN_CLIENT_SECRET!,
     }),
-    Providers.Credentials({
+    CredentialsProvider({
       name: 'Credentials',
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
-        // Call your Flask API for authentication
+      async authorize(credentials, req) {
         const res = await fetch("http://your-flask-api-url/auth/login", {
           method: 'POST',
           headers: { "Content-Type": "application/json" },
@@ -49,26 +48,31 @@ export default NextAuth({
             password: credentials.password,
           }),
         });
-
         const user = await res.json();
-
         if (res.ok && user) {
           return user;
         } else {
-          throw new Error(user.error);
+          throw new Error(user.error || "Authentication failed");
         }
       },
     }),
   ],
   callbacks: {
-    async session({ session, token, user }) {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          address: user.address,
-        },
-      };
+    async jwt({ token, user, account }) {
+      if (account && user) {
+        token.idToken = user.idToken;
+      }
+      return token;
     },
-  },
+    async session({ session, token }) {
+      if (token) {
+        session.user.idToken = token.idToken;
+        session.user.address = token.address;  // Assuming address is saved in token
+      }
+      return session;
+    }
+  }
 });
+
+// Optionally export other utilities from this module
+export default auth;
