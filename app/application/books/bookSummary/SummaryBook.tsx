@@ -49,7 +49,7 @@ const SummaryBook = ({ bookId, setLoading, onLoading }: SummaryBookProps) => {
       const bookData = {
         title,
         authors,
-        publisheddate: publishedDate // Change the key to 'publisheddate'
+        publishedDate: publishedDate, // Change the key to 'publishedDate'
       };
 
       const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/openai/summary`, {
@@ -60,6 +60,10 @@ const SummaryBook = ({ bookId, setLoading, onLoading }: SummaryBookProps) => {
         },
         body: JSON.stringify({ books: [bookData] }), // Use the new bookData object
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const responseData = await response.json();
       if (responseData && responseData.summaries && responseData.summaries.length > 0) {
