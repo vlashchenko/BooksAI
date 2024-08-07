@@ -46,6 +46,7 @@ const AskAiButton = () => {
           <button
             onClick={handleSearchSubmit}
             className="bg-blue-500 p-2 mt-1 rounded-r text-black"
+            title="Submit your question"
           >
             <SearchButtonSVG />
           </button>

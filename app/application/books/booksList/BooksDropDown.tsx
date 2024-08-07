@@ -23,7 +23,6 @@ const BookDropdown = ({
   const [inputValue, setInputValue] = useState("");
   const router = useRouter();
 
-  // Keep track of inputValue for other purposes
   const onInputValueChanged = (value: string) => {
     setInputValue(value);
     onInputChange(value);
@@ -38,14 +37,12 @@ const BookDropdown = ({
     openMenu,
   } = useCombobox<GoogleBookVolume>({
     items: books,
-
     onInputValueChange: ({ inputValue }) => {
       onInputValueChanged(inputValue || "");
       if (inputValue && books.length === 0) {
         openMenu();
       }
     },
-
     itemToString: (item) => item?.title ?? "",
   });
 

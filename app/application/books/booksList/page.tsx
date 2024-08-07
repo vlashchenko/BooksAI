@@ -1,61 +1,42 @@
-// src/app/page.tsx
+"use client"
 
-"use client";
-
-import React, { useEffect, useState, useContext } from "react";
-import { BookContext } from "@/app/wrappers/BooksListContext"; // Import the context
-import { BookContextType } from "@/app/wrappers/BooksListContext";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/app/store/store";
+import { fetchBooks } from "@/app/store/bookSlice";
 import OpenAIIcon from "@/public/assets/svg/OpenAIIconSVG";
 import BookDropdown from "@/app/application/books/booksList/BooksDropDown";
 
 function StartPage() {
   const [query, setQuery] = useState("");
-  const { books, setBooks } = useContext<BookContextType>(BookContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState<string | null>(null);
+  const books = useSelector((state: RootState) => state.books.items);
+  const isLoading = useSelector((state: RootState) => state.books.loading);
+  const serverError = useSelector((state: RootState) => state.books.error);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     console.log("Query changed:", query);
 
-    if (query.length >= 1) {
+    if (query.length >= 3) {
       console.log("Fetching books for query:", query);
-      fetchBooks(query);
+      dispatch(fetchBooks(query));
     }
-  }, [query]);
-
-  const fetchBooks = async (query: string) => {
-    try {
-      setIsLoading(true);
-      const response = await fetch(
-        `/api/book?query=${encodeURIComponent(query)}`
-      );
-
-      if (!response.ok) {
-        throw new Error("Server responded with an error");
-      }
-
-      const data = await response.json();
-      console.log("Fetched books data:", data);
-      setBooks(data);
-      setServerError(null);
-    } catch (error) {
-      console.error("Error fetching books:", error);
-      setServerError("No server connection...");
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  }, [query, dispatch]);
 
   return (
     <div className="w-[800px] max-w-full text-center flex flex-col justify-center items-center mx-8 bg-black">
       <div className="w-full max-w-md">
         <OpenAIIcon />
         <h1 className="text-white my-6">SUMMARIZE BOOKS WITH AI</h1>
-        <BookDropdown books={books} onInputChange={setQuery} isLoading={isLoading} />
+        <BookDropdown
+          books={books}
+          onInputChange={setQuery}
+          isLoading={isLoading}
+        />
         {serverError && <p className="text-red-500 mt-4">{serverError}</p>}
       </div>
     </div>
   );
-};
+}
 
 export default StartPage;

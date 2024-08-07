@@ -45,18 +45,18 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, account }) {
-      // Persist the user data in the token right after signin
+    async jwt({ token, user }) {
       if (user) {
         token.idToken = user.idToken || '';
-        token.address = user.address || ''; // Provide a default value if address is undefined
+        token.address = user.address || '';
+        token.name = user.name || '';
       }
       return token;
     },
     async session({ session, token }) {
-      // Send properties to the client
       session.user.idToken = token.idToken;
-      session.user.address = token.address || ''; // Provide a default value if address is undefined
+      session.user.address = token.address || '';
+      session.user.name = token.name || '';
       return session;
     },
   },
