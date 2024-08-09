@@ -36,4 +36,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 app/globals.css
-app/application/books/bookSummary/SummaryBook.tsx
+app/application/books/bookSummary/SummaryBook.tsxvenv/
+venv/

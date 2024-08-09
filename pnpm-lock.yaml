@@ -30,7 +30,11 @@ dependencies:
     specifier: ^14.2.4
     version: 14.2.4(react-dom@18.2.0)(react@18.2.0)
   next-auth:
+<<<<<<< HEAD
     specifier: 5.0.0-beta.19
+=======
+    specifier: ^5.0.0-beta.19
+>>>>>>> 120d04e39a931915842653f46b86dcdd8dd21657
     version: 5.0.0-beta.19(next@14.2.4)(react@18.2.0)
   openai:
     specifier: ^4.20.1
@@ -53,6 +57,9 @@ dependencies:
   react-type-animation:
     specifier: ^3.2.0
     version: 3.2.0(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
+  zod:
+    specifier: ^3.23.8
+    version: 3.23.8
 
 devDependencies:
   '@types/node':
@@ -3691,3 +3698,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+    dev: false

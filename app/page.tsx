@@ -1,13 +1,20 @@
+// newai/app/page.tsx
+
+"use client"
+
 import React from "react";
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
+import { Provider } from 'react-redux';
+import {store} from './store/store';
 
 const AppPage = () => {
-  console.log("the start page mounted");
+  console.log("The start page mounted");
   return (
-    <div className="">
-      <Hero />
-    </div>
+    <Provider store={store}>
+      <div className="">
+        <Hero />
+      </div>
+    </Provider>
   );
 };
 

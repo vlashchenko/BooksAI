@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // app/layout.tsx
 "use client";
 import { Inter } from "next/font/google";
@@ -12,6 +13,22 @@ import { useState, useEffect } from "react";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
+=======
+// newai/app/application/books/bookSummary/layout.tsx
+
+"use client";
+import { Inter } from "next/font/google";
+import "@/app/globals.css";
+import { useSession, getSession } from "next-auth/react";
+import LoginModal from "@/app/components/LoginModal";
+import { useState, useEffect } from "react";
+import { Provider } from "react-redux";
+import { store } from "@/app/store/store";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export default function BookSummaryLayout({
+>>>>>>> 120d04e39a931915842653f46b86dcdd8dd21657
   children,
 }: {
   children: React.ReactNode;
@@ -27,6 +44,7 @@ export default function RootLayout({
     checkSession();
   }, []);
 
+<<<<<<< HEAD
   // Provide the state and functions to the context
   return (
     <html lang="en">
@@ -51,5 +69,17 @@ export default function RootLayout({
         </BookDetailsContextProvider>
       </body>
     </html>
+=======
+  return (
+    <Provider store={store}>
+      <main className="flex-grow flex items-center justify-center bg-black">
+        {isLoading ? (
+          <div>Loading...</div>
+        ) : (
+          <>{status === "authenticated" ? children : <LoginModal />}</>
+        )}
+      </main>
+    </Provider>
+>>>>>>> 120d04e39a931915842653f46b86dcdd8dd21657
   );
 }

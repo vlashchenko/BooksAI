@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import NextAuth, { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import axios from 'axios';
@@ -59,3 +60,13 @@ export const authConfig: NextAuthOptions = {
 };
 
 export default NextAuth(authConfig);
+=======
+
+// app/api/auth/[...nextauth]/route.ts
+
+import NextAuth from "next-auth";
+import { options } from "../options";
+
+const authHandler = NextAuth(options);
+export { authHandler as GET, authHandler as POST };
+>>>>>>> 120d04e39a931915842653f46b86dcdd8dd21657
