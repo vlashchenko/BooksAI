@@ -1,19 +1,18 @@
+"use client";
+
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { SkeletonBookSummary } from "@/app/components/Skeleton";
 
 export type ContextBookProps = {
-  setLoadingContext: (loading: boolean) => void;
-  onLoadingContext: boolean;
+  onLoadingContext: boolean; // No need to use setLoadingContext in the component
 };
 
-const ContextBook = ({
-  setLoadingContext,
-  onLoadingContext,
-}: ContextBookProps) => {
+const ContextBook = ({ onLoadingContext }: ContextBookProps) => {
+  // Ensure contextResponses is always an object
   const contextResponses = useSelector(
-    (state: RootState) => state.books.contextResponses
+    (state: RootState) => state.books.contextResponses || {}
   );
   const queryContext = useSelector(
     (state: RootState) => state.books.queryContext
@@ -31,8 +30,8 @@ const ContextBook = ({
 
   return (
     <div className="space-y-6">
-      {onLoadingContext && <SkeletonBookSummary />}
-      {Object.entries(contextResponses).map(([question, answer], index) => (
+      {onLoadingContext && <SkeletonBookSummary />} {/* Show skeleton when loading */}
+      {!onLoadingContext && Object.entries(contextResponses).map(([question, answer], index) => (
         <div
           key={`${index}`}
           className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md"

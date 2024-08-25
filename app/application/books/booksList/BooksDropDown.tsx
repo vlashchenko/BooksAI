@@ -8,24 +8,25 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Image from "next/image";
 import bookCoverPlaceholder from "@/public/assets/images/book_cover_placeholder.jpeg";
 import { SkeletonBookList } from "@/app/components/Skeleton";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, AppDispatch } from "@/app/store/store";
+import { fetchBooks } from "@/app/store/bookThunk";
 
-export type BookDropdownProps = {
-  books?: GoogleBookVolume[];
-  onInputChange: (value: string) => void;
-  isLoading: boolean;
-};
+export type BookDropdownProps = {};
 
-const BookDropdown = ({
-  books = [],
-  onInputChange,
-  isLoading,
-}: BookDropdownProps) => {
+const BookDropdown = ({}: BookDropdownProps) => {
   const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+
+  const books = useSelector((state: RootState) => state.books.items);
+  const isLoading = useSelector((state: RootState) => state.books.loading);
 
   const onInputValueChanged = (value: string) => {
     setInputValue(value);
-    onInputChange(value);
+    if (value.length >= 3) {
+      dispatch(fetchBooks(value)); // Dispatch the thunk to fetch books
+    }
   };
 
   const {

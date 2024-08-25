@@ -1,3 +1,6 @@
+// app/components/types.ts
+
+
 export type GoogleBookVolume = {
   title?: string;
   authors?: string[];

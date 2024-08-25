@@ -1,11 +1,12 @@
-// newai/app/store/store.ts
+// app/store/store.ts
 
 import { configureStore } from '@reduxjs/toolkit';
-import booksReducer from './bookSlice';
+import { booksReducer, authReducer } from './slices';
 
 export const store = configureStore({
   reducer: {
     books: booksReducer,
+    auth: authReducer,  // Add authReducer here
   },
 });
 

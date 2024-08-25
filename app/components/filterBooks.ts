@@ -1,8 +1,20 @@
-// src/utils/filterBooks.ts
-import { GoogleBookVolume } from "@/app/components/types";
+import { GoogleBookVolume, GoogleBooksAPIItem } from "@/app/components/types";
 
-export const filterAndDeduplicateBooks = (books: GoogleBookVolume[], query: string): GoogleBookVolume[] => {
+export const filterAndDeduplicateBooks = (apiItems: GoogleBooksAPIItem[], query: string): GoogleBookVolume[] => {
   const inputValue = query.toLowerCase();
+
+  // Transform the API response items into your application's GoogleBookVolume type
+  const books = apiItems.map((item): GoogleBookVolume => ({
+    title: item.volumeInfo.title,
+    authors: item.volumeInfo.authors,
+    publishedDate: item.volumeInfo.publishedDate,
+    description: item.volumeInfo.description,
+    industryIdentifier: item.volumeInfo.industryIdentifiers?.[0],
+    pageCount: item.volumeInfo.pageCount,
+    thumbnail: item.volumeInfo.imageLinks?.thumbnail,
+    categories: item.volumeInfo.categories,
+    id: item.volumeInfo.industryIdentifiers?.[0]?.identifier,
+  }));
 
   const filteredBooks = books.filter((book) => {
     const titleMatch = book.title?.toLowerCase().includes(inputValue);
@@ -16,5 +28,7 @@ export const filterAndDeduplicateBooks = (books: GoogleBookVolume[], query: stri
     return filteredBooks.find((b) => b.industryIdentifier?.identifier === id);
   }).filter((book): book is GoogleBookVolume => book !== undefined);
 
+  console.log(`[filterAndDeduplicateBooks] Final list of deduplicated books:`, deduplicatedBooks);
+  
   return deduplicatedBooks;
 };

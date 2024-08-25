@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/app/store/store";
-import { fetchBooks } from "@/app/store/bookSlice";
+import { fetchBooks } from "@/app/store/bookThunk";
 import OpenAIIcon from "@/public/assets/svg/OpenAIIconSVG";
 import BookDropdown from "@/app/application/books/booksList/BooksDropDown";
 
