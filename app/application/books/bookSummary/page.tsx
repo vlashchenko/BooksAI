@@ -1,5 +1,3 @@
-// src/app/summary/page.tsx
-
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -13,14 +11,14 @@ import ContextBook from "./ContextBook";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/app/store/store";
 import { selectBook, setBookDetails } from "@/app/store/slices";
-import {fetchBooks} from "@/app/store/bookThunk"
+import { fetchBooks } from "@/app/store/bookThunk";
+import AskAiButton from "./AskAiButton";
 
 const BookSummaryPage = () => {
   const searchParams = useSearchParams();
   const bookId = searchParams?.get("bookId") || null;
   const [query, setQuery] = useState("");
   const [loadingSummary, setLoadingSummary] = useState(false);
-  const [loadingContext, setLoadingContext] = useState(false);
 
   const books = useSelector((state: RootState) => state.books.items);
   const bookDetails = useSelector(
@@ -56,8 +54,6 @@ const BookSummaryPage = () => {
           dispatch(setBookDetails(details))
         }
         onQueryChange={setQuery}
-        loadingContext={loadingContext}
-        setLoadingContext={setLoadingContext}
       />
 
       {bookDetails && (
@@ -101,10 +97,9 @@ const BookSummaryPage = () => {
         </Suspense>
       </div>
 
-      <ContextBook
-        setLoadingContext={setLoadingContext}
-        onLoadingContext={loadingContext}
-      />
+      <AskAiButton />
+
+      <ContextBook />
     </div>
   );
 };

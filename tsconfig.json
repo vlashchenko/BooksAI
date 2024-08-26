@@ -30,6 +30,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "types/**/*.d.ts"
-  ],
+, "app/loading.js"  ],
   "exclude": ["node_modules"]
 }

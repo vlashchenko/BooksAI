@@ -1,4 +1,4 @@
-// src/app/dashboard/loading.ts
+// app/application/books/bookSummary/SummaryLoading.tsx
 
 import React from "react";
 import { SkeletonBookSummary } from "../../../components/Skeleton";

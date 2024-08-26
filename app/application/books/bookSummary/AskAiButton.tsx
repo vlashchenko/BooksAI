@@ -1,23 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { RootState, AppDispatch } from "@/app/store/store";
-import { fetchAiContext } from "@/app/store/bookThunk";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/app/store/store";
+import { setQueryContext } from "@/app/store/slices";
 import SearchButtonSVG from "@/public/assets/svg/SearchButtonSVG";
 
 const AskAiButton = () => {
   const dispatch: AppDispatch = useDispatch();
-  const selectedBook = useSelector(
-    (state: RootState) => state.books.selectedBook
-  );
-  const contextResponses = useSelector(
-    (state: RootState) => state.books.contextResponses
-  );
   const [isSearching, setIsSearching] = useState(false);
   const [query, setQuery] = useState("");
-
-  useEffect(() => {
-    console.log("Context Responses:", contextResponses);
-  }, [contextResponses]);
 
   const handleButtonClick = () => {
     setIsSearching(true);
@@ -28,14 +18,9 @@ const AskAiButton = () => {
   };
 
   const handleSearchSubmit = () => {
-    if (selectedBook) {
-      console.log("Dispatching fetchAiContext with query:", query);
-      dispatch(fetchAiContext({ bookDetails: selectedBook, query }));
-      setIsSearching(false);
-      setQuery(""); // Reset the query after submission
-    } else {
-      console.error("No book selected to ask AI.");
-    }
+    dispatch(setQueryContext(query)); // Set the query in the Redux store
+    setIsSearching(false);
+    setQuery(""); // Reset the query after submission
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {

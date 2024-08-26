@@ -51,7 +51,6 @@ const SummaryBook = ({ bookId, setLoading, onLoading }: SummaryBookProps) => {
       {(onLoading || summaryLoading) && <SkeletonBookSummary />} {/* Display skeleton when loading */}
       <div>
         <p className="text-gray-700 text-start justify-center">{bookDetails?.summary}</p>
-        <AskAiButton />
       </div>
     </div>
   );
