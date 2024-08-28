@@ -1,9 +1,7 @@
-// newai/app/application/books/bookSummary/layout.tsx
-
 "use client";
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
-import { useSession } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { Provider } from "react-redux";
 import { store } from "@/app/store/store";
 import { useRouter } from "next/navigation";
@@ -21,11 +19,24 @@ export default function BookSummaryLayout({
   const router = useRouter();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      // Redirect unauthenticated users to the NextAuth sign-in page
-      router.push("/api/auth/signin");
+    if (status === "loading") return; // Don't do anything if session is still loading
+
+    if (!session) {
+      router.push("/api/auth/signin"); // Redirect to sign-in if not authenticated
+    } else {
+      // Here you can also handle token expiration manually
+      // For example, sign out the user if the token is invalid
+      const expiresAt = session.expires ? new Date(session.expires) : null;
+      if (expiresAt && expiresAt < new Date()) {
+        signOut(); // Optional: Sign out the user
+        router.push("/api/auth/signin");
+      }
     }
-  }, [status, router]);
+  }, [session, status, router]);
+
+  if (status === "loading" || !session) {
+    return <Loading />; // Optionally, render a loading state
+  }
 
   return (
     <Provider store={store}>

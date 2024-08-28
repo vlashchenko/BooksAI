@@ -1,35 +1,33 @@
-'use client'
+"use client"
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
-const withAuth = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
-  const AuthComponent = (props: P) => {
+const withAuth = (WrappedComponent: React.ComponentType) => {
+  const ComponentWithAuth = (props: any) => {
     const { data: session, status } = useSession();
     const router = useRouter();
 
     useEffect(() => {
-      if (status === 'loading') return; // Do nothing while loading
+      if (status === 'loading') return; // Wait for the session to load
+
       if (!session) {
-        // Redirect to login if not authenticated
-        router.push('/login');
+        router.push('/auth/signin'); // Redirect to login page if not authenticated
       }
     }, [session, status, router]);
 
-    // Render the wrapped component only if authenticated
-    if (session) {
-      return <WrappedComponent {...props} />;
+    if (status === 'loading' || !session) {
+      return <div>Loading...</div>; // Optionally, render a loading state
     }
 
-    // You can return a loading spinner or null while loading
-    return null;
+    return <WrappedComponent {...props} />;
   };
 
-  // Add display name for debugging purposes
-  AuthComponent.displayName = `WithAuth(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+  // Add the display name for better debugging
+  ComponentWithAuth.displayName = `withAuth(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
 
-  return AuthComponent;
+  return ComponentWithAuth;
 };
 
 export default withAuth;
