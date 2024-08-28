@@ -1,7 +1,8 @@
 // src/store/booksSlice.ts
 import { createSlice } from "@reduxjs/toolkit";
 import { GoogleBookVolume } from "@/app/components/types";
-import { fetchBooks, fetchAiSummary, fetchAiContext } from "./bookThunk.client";
+import { fetchAiSummary, fetchAiContext } from "./bookThunk.client";
+import { fetchBooks } from "./bookThunk.server" 
 
 const initialBooksState = {
   items: [] as GoogleBookVolume[],
