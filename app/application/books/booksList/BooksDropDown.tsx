@@ -10,7 +10,7 @@ import bookCoverPlaceholder from "@/public/assets/images/book_cover_placeholder.
 import { SkeletonBookList } from "@/app/components/Skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/app/store/store";
-import { fetchBooks } from "@/app/store/bookThunk";
+import { fetchBooks } from "@/app/store/bookThunk.server";
 
 export type BookDropdownProps = {};
 

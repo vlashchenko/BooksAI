@@ -1,7 +1,7 @@
 // src/store/booksSlice.ts
-import { createSlice } from '@reduxjs/toolkit';
-import { GoogleBookVolume } from '@/app/components/types';
-import { fetchBooks, fetchAiSummary, fetchAiContext } from './bookThunk';
+import { createSlice } from "@reduxjs/toolkit";
+import { GoogleBookVolume } from "@/app/components/types";
+import { fetchBooks, fetchAiSummary, fetchAiContext } from "./bookThunk.client";
 
 const initialBooksState = {
   items: [] as GoogleBookVolume[],
@@ -14,7 +14,7 @@ const initialBooksState = {
 };
 
 export const booksSlice = createSlice({
-  name: 'books',
+  name: "books",
   initialState: initialBooksState,
   reducers: {
     setBooks: (state, action) => {
@@ -27,9 +27,16 @@ export const booksSlice = createSlice({
     setBookDetails: (state, action) => {
       const updatedBook = action.payload;
       state.bookDetails = state.bookDetails.map((book) =>
-        book.industryIdentifier?.identifier === updatedBook.industryIdentifier.identifier ? updatedBook : book
+        book.industryIdentifier?.identifier ===
+        updatedBook.industryIdentifier.identifier
+          ? updatedBook
+          : book
       );
-      if (state.selectedBook && state.selectedBook.industryIdentifier?.identifier === updatedBook.industryIdentifier.identifier) {
+      if (
+        state.selectedBook &&
+        state.selectedBook.industryIdentifier?.identifier ===
+          updatedBook.industryIdentifier.identifier
+      ) {
         state.selectedBook = updatedBook;
       }
     },
@@ -66,5 +73,6 @@ export const booksSlice = createSlice({
   },
 });
 
-export const { setBooks, selectBook, setBookDetails, setQueryContext } = booksSlice.actions;
+export const { setBooks, selectBook, setBookDetails, setQueryContext } =
+  booksSlice.actions;
 export default booksSlice.reducer;

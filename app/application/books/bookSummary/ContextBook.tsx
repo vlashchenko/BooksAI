@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/app/store/store";
-import { fetchAiContext } from "@/app/store/bookThunk";
+import { fetchAiContext } from "@/app/store/bookThunk.client";
 import { SkeletonBookSummary } from "@/app/components/Skeleton";
 
 export type ContextBookProps = {};
@@ -24,9 +24,10 @@ const ContextBook = () => {
 
   useEffect(() => {
     if (queryContext && selectedBook) {
-      setIsLoading(true);  // Set loading state to true before dispatching the action
-      dispatch(fetchAiContext({ bookDetails: selectedBook, query: queryContext }))
-        .finally(() => setIsLoading(false));  // Set loading state to false after the action completes
+      setIsLoading(true); // Set loading state to true before dispatching the action
+      dispatch(
+        fetchAiContext({ bookDetails: selectedBook, query: queryContext })
+      ).finally(() => setIsLoading(false)); // Set loading state to false after the action completes
     }
   }, [queryContext, selectedBook, dispatch]);
 

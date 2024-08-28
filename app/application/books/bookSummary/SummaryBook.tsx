@@ -8,7 +8,7 @@ import withAuth from "@/app/components/withAuth";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/app/store/store"; // Import AppDispatch
 import { setBookDetails } from "@/app/store/slices";
-import { fetchAiSummary } from "@/app/store/bookThunk"; // Import the thunk
+import { fetchAiSummary } from "@/app/store/bookThunk.client"; // Import the thunk
 
 export type SummaryBookProps = {
   bookId: string | null;
@@ -19,7 +19,9 @@ export type SummaryBookProps = {
 const SummaryBook = ({ bookId, setLoading, onLoading }: SummaryBookProps) => {
   const [summaryLoading, setSummaryLoading] = useState(false); // State for summary loading
   const books = useSelector((state: RootState) => state.books.items);
-  const bookDetails = useSelector((state: RootState) => state.books.selectedBook);
+  const bookDetails = useSelector(
+    (state: RootState) => state.books.selectedBook
+  );
   const dispatch: AppDispatch = useDispatch(); // Properly type the dispatch
 
   console.log("SummaryBook received bookId prop:", bookId);
@@ -30,16 +32,22 @@ const SummaryBook = ({ bookId, setLoading, onLoading }: SummaryBookProps) => {
     if (bookId) {
       console.log("Fetching details for bookId:", bookId);
       setLoading(true);
-      const bookFromContext = books.find((book) => book.industryIdentifier?.identifier === bookId);
+      const bookFromContext = books.find(
+        (book) => book.industryIdentifier?.identifier === bookId
+      );
       console.log("Book found from Redux:", bookFromContext);
       if (bookFromContext) {
         dispatch(setBookDetails(bookFromContext));
-        console.log("BookDetails updated by the bookFromContext:", bookFromContext);
-        
+        console.log(
+          "BookDetails updated by the bookFromContext:",
+          bookFromContext
+        );
+
         // Set loading state for the summary
         setSummaryLoading(true);
-        dispatch(fetchAiSummary({ bookDetails: bookFromContext }))
-          .finally(() => setSummaryLoading(false)); // Ensure loading state is reset
+        dispatch(fetchAiSummary({ bookDetails: bookFromContext })).finally(() =>
+          setSummaryLoading(false)
+        ); // Ensure loading state is reset
       }
       setLoading(false);
     }
@@ -48,9 +56,12 @@ const SummaryBook = ({ bookId, setLoading, onLoading }: SummaryBookProps) => {
   return (
     <div className="p-4 border flex flex-col space-y-2 border-gray-300 rounded-md min-w-[400px] w-full">
       <h2 className="text-gray-800 text-xl">Book Summary</h2>
-      {(onLoading || summaryLoading) && <SkeletonBookSummary />} {/* Display skeleton when loading */}
+      {(onLoading || summaryLoading) && <SkeletonBookSummary />}{" "}
+      {/* Display skeleton when loading */}
       <div>
-        <p className="text-gray-700 text-start justify-center">{bookDetails?.summary}</p>
+        <p className="text-gray-700 text-start justify-center">
+          {bookDetails?.summary}
+        </p>
       </div>
     </div>
   );
