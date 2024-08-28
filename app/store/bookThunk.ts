@@ -1,3 +1,7 @@
+// app/store/bookThunk.ts
+
+"use server"
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { GoogleBookVolume, GoogleBooksAPIItem } from '@/app/components/types';
 import { filterAndDeduplicateBooks } from '@/app/components/filterBooks';
