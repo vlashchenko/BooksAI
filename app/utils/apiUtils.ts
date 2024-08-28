@@ -1,4 +1,6 @@
 // apiUtils.ts
+
+'use client'
 import axios from 'axios';
 
 export const postWithAuth = async (url: string, data: any, jwtToken: string) => {
