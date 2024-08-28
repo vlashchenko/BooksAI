@@ -11,7 +11,7 @@ import ContextBook from "./ContextBook";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, AppDispatch } from "@/app/store/store";
 import { selectBook, setBookDetails } from "@/app/store/slices";
-import { fetchBooks } from "@/app/store/bookThunk.client";
+import { fetchBooks } from "@/app/store/bookThunk.server";
 import AskAiButton from "./AskAiButton";
 
 const BookSummaryPage = () => {

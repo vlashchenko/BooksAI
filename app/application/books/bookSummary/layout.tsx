@@ -1,4 +1,5 @@
 "use client";
+
 import { Inter } from "next/font/google";
 import "@/app/globals.css";
 import { useSession, signOut } from "next-auth/react";
