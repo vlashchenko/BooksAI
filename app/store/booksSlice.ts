@@ -53,8 +53,8 @@ export const booksSlice = createSlice({
       })
       .addCase(fetchBooks.fulfilled, (state, action) => {
         state.loading = false;
-        state.items = action.payload;
-      })
+        state.items = action.payload ?? []; // Default to an empty array if payload is undefined
+    })
       .addCase(fetchBooks.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;

@@ -1,5 +1,4 @@
 // app/store/bookThunk.client.ts
-"use client"
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { GoogleBookVolume } from '@/app/components/types';
