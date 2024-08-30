@@ -2,7 +2,7 @@
 
 import { NextResponse } from 'next/server';
 
-export async function middleware(req) {
+export async function withAuth(req) {
   const token = req.cookies.get('next-auth.session-token') || req.cookies.get('__Secure-next-auth.session-token');
 
   // Redirect to sign-in page if token is not present
