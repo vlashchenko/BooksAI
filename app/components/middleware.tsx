@@ -2,10 +2,10 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, ComponentType } from 'react';
+import { useEffect } from 'react';
 
-const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
-  const ComponentWithAuth = (props: P) => {
+const withAuth = <P extends object>(WrappedComponent: React.ComponentType<P>): React.FC<P> => {
+  const ComponentWithAuth: React.FC<P> = (props) => {
     const { data: session, status } = useSession();
     const router = useRouter();
 
@@ -18,7 +18,7 @@ const withAuth = <P extends object>(WrappedComponent: ComponentType<P>) => {
     }, [session, status, router]);
 
     if (status === 'loading' || !session) {
-      return <div>Loading...</div>; // Optionally, render a loading state
+      return <div>Loading...</div>;
     }
 
     return <WrappedComponent {...props} />;
