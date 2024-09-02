@@ -19,6 +19,7 @@ const BookSummaryPage = () => {
   const bookId = searchParams?.get("bookId") || null;
   const [query, setQuery] = useState("");
   const [loadingSummary, setLoadingSummary] = useState(false);
+  const [loadingContext, setLoadingContext] = useState(false); // Add loadingContext state
 
   const books = useSelector((state: RootState) => state.books.items);
   const bookDetails = useSelector(
@@ -26,10 +27,7 @@ const BookSummaryPage = () => {
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  console.log("Check books context in summary page:", books);
-
   useEffect(() => {
-    console.log("BookSummaryPage mounted with bookId:", bookId);
     if (bookId) {
       const bookFromContext = books.find(
         (book) => book.industryIdentifier?.identifier === bookId
@@ -54,6 +52,8 @@ const BookSummaryPage = () => {
           dispatch(setBookDetails(details))
         }
         onQueryChange={setQuery}
+        loadingContext={loadingContext}  // Pass loadingContext state
+        setLoadingContext={setLoadingContext}  // Pass setLoadingContext function
       />
 
       {bookDetails && (
